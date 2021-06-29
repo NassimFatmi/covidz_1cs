@@ -12,9 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'COVIDZ',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Montserrat'),
       routes: {
         AuthScreen.route: (_) => AuthScreen(),
         HomeScreen.route: (_) => HomeScreen(),

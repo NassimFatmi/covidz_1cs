@@ -33,11 +33,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   Column(
                     children: [
                       Image(
-                        image: AssetImage('assets/logoX1.png'),
+                        image: AssetImage('assets/images/logo.png'),
                       ),
                       SizedBox(height: 20),
                       SvgPicture.asset(
-                        'assets/bg.svg',
+                        'assets/images/bg.svg',
                         semanticsLabel: 'doctors',
                         height: 250,
                       ),
@@ -47,8 +47,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     children: [
                       Text(
                         'Login or Sign up',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w300),
+                        style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(height: 10),
                       Text(
@@ -80,7 +79,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               )
                             : Text('Connect',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16)),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                )),
                         onTap: () async {
                           setState(() {
                             _isLoading = true;
