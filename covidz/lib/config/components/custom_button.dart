@@ -34,3 +34,43 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+class CustomRectButton extends StatelessWidget {
+  final Function onTap;
+  final Color color;
+  final String title;
+  final IconData iconData;
+  const CustomRectButton({
+    @required this.onTap,
+    this.color = mainBlue,
+    @required this.iconData,
+    @required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 130, maxHeight: 130),
+        padding: const EdgeInsets.all(20),
+        decoration:
+            BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              iconData,
+              color: Colors.white,
+              size: 40,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
