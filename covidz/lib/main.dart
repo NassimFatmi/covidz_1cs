@@ -2,11 +2,10 @@ import 'package:covidz/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Covidz());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class Covidz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

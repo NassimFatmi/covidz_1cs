@@ -223,7 +223,9 @@ class HomeTab extends StatelessWidget {
           SizedBox(height: 15),
           Column(
             children: [
-              latestUpdate('80% of cases are in Algiers', '45 min ago',
+              latestUpdate(context, '80% of cases are in Algiers', '45 min ago',
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Covid-19_San_Salvatore_09.jpg/330px-Covid-19_San_Salvatore_09.jpg'),
+              latestUpdate(context, 'New lockdown in 24 Willaya', '1 h ago',
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Covid-19_San_Salvatore_09.jpg/330px-Covid-19_San_Salvatore_09.jpg')
             ],
           ),
@@ -233,9 +235,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Container latestUpdate(String title, String timeAgo, String url) {
+  Container latestUpdate(
+      BuildContext context, String title, String timeAgo, String url) {
     return Container(
       height: 100,
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: grey,
         borderRadius: BorderRadius.circular(8),
@@ -245,6 +249,7 @@ class HomeTab extends StatelessWidget {
           Container(
             height: 100,
             width: 100,
+            margin: EdgeInsets.only(right: 8),
             child: Image.network(url, fit: BoxFit.cover, width: 100,
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent loadingProgress) {
@@ -254,25 +259,29 @@ class HomeTab extends StatelessWidget {
               );
             }),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                timeAgo,
-                style: TextStyle(
-                  color: Colors.white,
+          Container(
+            constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width - 120),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
+                SizedBox(height: 8),
+                Text(
+                  timeAgo,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -294,6 +303,7 @@ class QrTab extends StatefulWidget {
 
 class _QrTabState extends State<QrTab> {
   bool _showQR = false;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -317,10 +327,18 @@ class _QrTabState extends State<QrTab> {
                 iconData: Icons.qr_code,
                 title: 'Generate your QR',
                 color: mainRed,
-                onTap: () {
-                  setState(() {
-                    _showQR = !_showQR;
-                  });
+                onTap: () async {
+                  if (!_showQR) {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Future.delayed(Duration(seconds: 1));
+                    setState(() {
+                      _isLoading = false;
+
+                      _showQR = !_showQR;
+                    });
+                  }
                 },
               ),
             ],
@@ -333,6 +351,9 @@ class _QrTabState extends State<QrTab> {
                 )
               : const SizedBox.shrink(),
           const SizedBox(height: 10),
+          _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : const SizedBox.shrink(),
           _showQR
               ? QrImage(
                   data: 'user data',

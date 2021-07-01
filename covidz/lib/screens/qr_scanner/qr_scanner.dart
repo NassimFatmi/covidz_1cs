@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:covidz/config/colors/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -32,6 +33,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: mainGreen,
         onPressed: () => Navigator.pop(context),
         child: Icon(Icons.arrow_back),
       ),

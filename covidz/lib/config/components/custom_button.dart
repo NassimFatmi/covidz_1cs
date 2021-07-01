@@ -66,6 +66,7 @@ class CustomRectButton extends StatelessWidget {
             ),
             Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ],
