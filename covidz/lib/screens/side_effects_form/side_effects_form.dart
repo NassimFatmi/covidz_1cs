@@ -231,7 +231,7 @@ class _PageTwoState extends State<PageTwo> {
                 setState(() => isFievre = !isFievre);
               },
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 8),
             CheckboxListTile(
               activeColor: mainGreen,
               tileColor: Colors.grey[100],
@@ -244,7 +244,7 @@ class _PageTwoState extends State<PageTwo> {
                 setState(() => isTouxSeche = !isTouxSeche);
               },
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 8),
             CheckboxListTile(
               activeColor: mainGreen,
               tileColor: Colors.grey[100],
@@ -257,7 +257,7 @@ class _PageTwoState extends State<PageTwo> {
                 setState(() => isPerdsOd = !isPerdsOd);
               },
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 8),
             CheckboxListTile(
               activeColor: mainGreen,
               tileColor: Colors.grey[100],
@@ -270,7 +270,7 @@ class _PageTwoState extends State<PageTwo> {
                 setState(() => isFrissons = !isFrissons);
               },
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 8),
             CheckboxListTile(
               activeColor: mainGreen,
               tileColor: Colors.grey[100],
