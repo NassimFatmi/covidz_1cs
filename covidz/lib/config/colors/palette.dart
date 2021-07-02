@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const mainBlue = const Color(0xFF1D6DAA);
+// const mainBlue = const Color(0xFF1D6DAA);
 const mainRed = const Color(0xFFB93435);
 const mainGreen = const Color(0xFF1EC1C1);
 const notifOrange = const Color(0xFFEBBC75);

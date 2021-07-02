@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           hintText: 'Enter phone number',
                           prefix: Text('(+213) '),

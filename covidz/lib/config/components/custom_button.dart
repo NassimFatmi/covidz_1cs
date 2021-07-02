@@ -5,7 +5,6 @@ class CustomButton extends StatelessWidget {
   @required
   final Function onTap;
   final Widget child;
-  final Color textColor;
   final Color bgColor;
   final double height;
   final EdgeInsetsGeometry padding;
@@ -13,7 +12,6 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     this.onTap,
     this.child,
-    this.textColor = Colors.white,
     this.bgColor = mainGreen,
     this.height = 50,
     this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -42,7 +40,7 @@ class CustomRectButton extends StatelessWidget {
   final IconData iconData;
   const CustomRectButton({
     @required this.onTap,
-    this.color = mainBlue,
+    this.color = mainGreen,
     @required this.iconData,
     @required this.title,
   });

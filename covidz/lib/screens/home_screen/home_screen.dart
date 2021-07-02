@@ -1,5 +1,5 @@
 import 'package:covidz/config/config.dart';
-import 'package:covidz/screens/qr_scanner/qr_scanner.dart';
+import 'package:covidz/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentTabIndex,
-        selectedItemColor: mainBlue,
+        selectedItemColor: mainGreen,
         onTap: (index) {
           setState(() {
             _currentTabIndex = index;
@@ -57,8 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeTab extends StatelessWidget {
-  final List covidCases = [
+class HomeTab extends StatefulWidget {
+  @override
+  _HomeTabState createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  List covidCases = [
     {
       'title': 'Confirmed cases',
       'content': 120,
@@ -73,7 +78,15 @@ class HomeTab extends StatelessWidget {
     },
   ];
 
-  Card emergencyCard() {
+  List notificationsList = [
+    {
+      'title': 'Important Notification !',
+      'content':
+          'The presedent has announced a lockdown from 8 May to 16 May to fight surge in Covid 19 cases',
+    },
+  ];
+
+  Card emergencyCard(String title, String content, Widget child) {
     return Card(
       margin: EdgeInsets.only(bottom: 30),
       elevation: 1.5,
@@ -88,13 +101,13 @@ class HomeTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Do you feel sick ?',
+                    title,
                     softWrap: true,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'If you find yourself sick with COVID-19 symptomes, call or sms us immediately for assistance.',
+                    content,
                     style: TextStyle(fontSize: 14),
                     softWrap: true,
                   ),
@@ -102,21 +115,17 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                cardButton(Icons.call, 'Call Now', mainRed),
-                cardButton(Icons.message, 'Send SMS', mainBlue),
-              ],
-            )
+            child,
           ],
         ),
       ),
     );
   }
 
-  CustomButton cardButton(IconData icon, String text, Color color) {
+  CustomButton cardButton(
+      IconData icon, String text, Color color, Function onTap) {
     return CustomButton(
+      onTap: onTap,
       bgColor: color,
       padding: EdgeInsets.symmetric(horizontal: 25),
       height: 45,
@@ -147,55 +156,73 @@ class HomeTab extends StatelessWidget {
       width: size.width,
       child: ListView(
         children: [
-          emergencyCard(),
-          // start announcement container
-          Container(
-            margin: const EdgeInsets.only(bottom: 25),
-            child: Column(
+          emergencyCard(
+            'Do you feel sick ?',
+            'If you find yourself sick with COVID-19 symptomes, call or sms us immediately for assistance.',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                HomeNotification(
-                  title: 'Important Notification !',
-                  notifContent:
-                      'The presedent has announced a lockdown from 8 May to 16 May to fight surge in Covid 19 cases',
-                ),
+                cardButton(Icons.call, 'Call Now', mainRed, () {}),
+                cardButton(Icons.message, 'Send SMS', mainGreen, () {}),
               ],
             ),
           ),
-          // end announcement container
+          // start notif container
+          Container(
+            constraints: BoxConstraints(minHeight: 0),
+            margin: const EdgeInsets.only(bottom: 25),
+            child: Column(
+              children: notificationsList
+                  .map(
+                    (notification) => HomeNotification(
+                      onDismissed: (direction) {
+                        setState(() {
+                          notificationsList.remove(notification);
+                        });
+                      },
+                      title: notification['title'],
+                      notifContent: notification['content'],
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+          // end notif container
 
           // Start covid cases today
           sectionTitle('Covid cases today'),
           SizedBox(height: 15),
           Container(
-            height: size.height * 0.1,
+            height: size.height * 0.13,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: covidCases
                   .map((item) => Container(
                         width: size.width * 0.29,
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 12),
                         decoration: BoxDecoration(
-                          color: mainBlue,
+                          color: mainGreen,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               item['title'],
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
+                                fontSize: 16,
                               ),
                             ),
                             SizedBox(height: 8),
                             Text(
                               '${item['content'].toString()}',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -217,6 +244,25 @@ class HomeTab extends StatelessWidget {
             ],
           ),
           // End covid cases today
+
+          // Start form secondary effects
+
+          emergencyCard(
+            'Do you have side effects ?',
+            'Fill the form and report side effects of the vaccin',
+            cardButton(
+              Icons.description_outlined,
+              'Fill the form',
+              mainRed,
+              () {
+                Navigator.pushNamed(
+                  context,
+                  SideEffectsForm.route,
+                );
+              },
+            ),
+          ),
+          // End form secondary effects
 
           // Start Latest updates
           sectionTitle('See latest updates'),

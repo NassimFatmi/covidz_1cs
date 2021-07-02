@@ -15,6 +15,7 @@ class Covidz extends StatelessWidget {
       routes: {
         AuthScreen.route: (_) => AuthScreen(),
         HomeScreen.route: (_) => HomeScreen(),
+        SideEffectsForm.route: (_) => SideEffectsForm(),
       },
       home: AuthScreen(),
     );

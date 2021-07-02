@@ -6,16 +6,19 @@ class HomeNotification extends StatelessWidget {
   final String title;
   @required
   final String notifContent;
+  final Function onDismissed;
   const HomeNotification({
     this.title,
     this.notifContent,
+    @required this.onDismissed,
   });
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Dismissible(
-      key: ValueKey('key'),
+      onDismissed: onDismissed,
+      key: UniqueKey(),
       child: Container(
         width: size.width - 40,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
