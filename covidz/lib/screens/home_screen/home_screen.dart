@@ -65,24 +65,24 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   List covidCases = [
     {
-      'title': 'Confirmed cases',
+      'title': 'Cas confirmés',
       'content': 120,
     },
     {
-      'title': 'Recovred',
+      'title': 'Rétablie',
       'content': 238,
     },
     {
-      'title': 'Deaths',
+      'title': 'Mortes',
       'content': 9,
     },
   ];
 
   List notificationsList = [
     {
-      'title': 'Important Notification !',
+      'title': 'Notification importante !',
       'content':
-          'The presedent has announced a lockdown from 8 May to 16 May to fight surge in Covid 19 cases',
+          'Le président Tebboune a annoncé un prolongement du confinement de 16 à 18 May',
     },
   ];
 
@@ -157,13 +157,13 @@ class _HomeTabState extends State<HomeTab> {
       child: ListView(
         children: [
           emergencyCard(
-            'Do you feel sick ?',
-            'If you find yourself sick with COVID-19 symptomes, call or sms us immediately for assistance.',
+            'Est-ce-que vous êtes malade ?',
+            "Si vous avez des symptômes de COVID-19, appelez-nous ou envoyez un SMS immédiatement pour obtenir de l'aide.",
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                cardButton(Icons.call, 'Call Now', mainRed, () {}),
-                cardButton(Icons.message, 'Send SMS', mainGreen, () {}),
+                cardButton(Icons.call, 'Appeler', mainRed, () {}),
+                cardButton(Icons.message, 'envoyer SMS', mainGreen, () {}),
               ],
             ),
           ),
@@ -190,7 +190,7 @@ class _HomeTabState extends State<HomeTab> {
           // end notif container
 
           // Start covid cases today
-          sectionTitle('Covid cases today'),
+          sectionTitle("Cas de Covid aujourd'hui"),
           SizedBox(height: 15),
           Container(
             height: size.height * 0.13,
@@ -236,7 +236,7 @@ class _HomeTabState extends State<HomeTab> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'See all',
+                  'Voir tout',
                   style: TextStyle(color: Colors.black),
                 ),
                 style: ButtonStyle(),
@@ -248,11 +248,11 @@ class _HomeTabState extends State<HomeTab> {
           // Start form secondary effects
 
           emergencyCard(
-            'Do you have side effects ?',
-            'Fill the form and report side effects of the vaccin',
+            'Avez-vous des effets secondaires ? ',
+            'Remplissez le formulaire et signalez les effets secondaires que vous avez ',
             cardButton(
               Icons.description_outlined,
-              'Fill the form',
+              'Remplissez le formulaire',
               mainRed,
               () {
                 Navigator.pushNamed(
@@ -265,13 +265,19 @@ class _HomeTabState extends State<HomeTab> {
           // End form secondary effects
 
           // Start Latest updates
-          sectionTitle('See latest updates'),
+          sectionTitle('Voir les dernières mises à jour'),
           SizedBox(height: 15),
           Column(
             children: [
-              latestUpdate(context, '80% of cases are in Algiers', '45 min ago',
+              latestUpdate(
+                  context,
+                  '80% des cas du covid sont dans alger',
+                  'il y a 40 min',
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Covid-19_San_Salvatore_09.jpg/330px-Covid-19_San_Salvatore_09.jpg'),
-              latestUpdate(context, 'New lockdown in 24 Willaya', '1 h ago',
+              latestUpdate(
+                  context,
+                  'Nouveau confinement au 24 Willaya',
+                  'il y a 1 h',
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Covid-19_San_Salvatore_09.jpg/330px-Covid-19_San_Salvatore_09.jpg')
             ],
           ),
@@ -307,13 +313,14 @@ class _HomeTabState extends State<HomeTab> {
           ),
           Container(
             constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width - 120),
+                maxWidth: MediaQuery.of(context).size.width - 160),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -363,7 +370,7 @@ class _QrTabState extends State<QrTab> {
             children: [
               CustomRectButton(
                 iconData: Icons.qr_code_scanner_outlined,
-                title: 'Scan a QR',
+                title: 'Scanner un QR',
                 onTap: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => QRScanner()));
@@ -371,7 +378,7 @@ class _QrTabState extends State<QrTab> {
               ),
               CustomRectButton(
                 iconData: Icons.qr_code,
-                title: 'Generate your QR',
+                title: 'Génerer votre QR',
                 color: mainRed,
                 onTap: () async {
                   if (!_showQR) {
@@ -390,12 +397,6 @@ class _QrTabState extends State<QrTab> {
             ],
           ),
           SizedBox(height: 20),
-          _showQR
-              ? Text(
-                  'This is your QR code',
-                  style: TextStyle(fontSize: 22),
-                )
-              : const SizedBox.shrink(),
           const SizedBox(height: 10),
           _isLoading
               ? Center(child: CircularProgressIndicator())

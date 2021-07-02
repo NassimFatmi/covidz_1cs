@@ -46,12 +46,12 @@ class _AuthScreenState extends State<AuthScreen> {
                   Column(
                     children: [
                       Text(
-                        'Login or Sign up',
+                        'Se connecter ou Créer compte',
                         style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'A one-time password will be send to your\nphone number',
+                        'Un mot de passe de confirmation sera envoyé à votre numéro de téléphone',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.grey[500],
@@ -62,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       TextFormField(
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          hintText: 'Enter phone number',
+                          hintText: 'Numéro de telephone',
                           prefix: Text('(+213) '),
                         ),
                       ),
@@ -77,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Text('Connect',
+                            : Text('Se connecter',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
