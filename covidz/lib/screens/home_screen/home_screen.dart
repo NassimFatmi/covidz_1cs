@@ -65,7 +65,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   List covidCases = [
     {
-      'title': 'Cas confirmés',
+      'title': 'Confirmés',
       'content': 120,
     },
     {
@@ -73,7 +73,7 @@ class _HomeTabState extends State<HomeTab> {
       'content': 238,
     },
     {
-      'title': 'Mortes',
+      'title': 'Morts',
       'content': 9,
     },
   ];
